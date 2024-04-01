@@ -15,14 +15,17 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.expensetracker.pages.Expenses
 import com.example.expensetracker.ui.theme.ExpenseTrackerTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,6 +41,7 @@ class MainActivity : ComponentActivity() {
                 //on click: go to that route
                 val backStackEntry = navController.currentBackStackEntryAsState()
                 Scaffold(
+                    //Create bottom bar
                     bottomBar = {
                                 NavigationBar {
                                     //Expenses Item
@@ -104,10 +108,27 @@ class MainActivity : ComponentActivity() {
                                         },
                                     )
 
+                                    //Profile
+                                    NavigationBarItem(
+                                        selected = backStackEntry.value?.destination?.route == "profile",
+                                        onClick = { navController.navigate("profile")},
+                                        icon = {
+                                            Icon(
+                                                painterResource(id = R.drawable.profile),
+                                                contentDescription = "Profile"
+                                            )
+                                        },
+                                        label = {
+                                            Text(text = "Profile")
+
+                                        },
+                                    )
+
+
                                 }
 
                     },
-                    //set navHost
+                    //set navHost and Routes
                     content = { innerPadding ->
                         NavHost(navController = navController, startDestination = "expenses"){
                             //Composable for expenses
@@ -117,7 +138,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxSize()
                                         .padding(innerPadding),
                                 ) {
-                                    Greeting(name = "Expenses")
+                                    Expenses(name = "Expenses", navController)
                                 }
                             }
                             //Composable for reports
@@ -151,6 +172,27 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
 
+                            //Composable for categories in settings screen
+                            composable("settings/categories"){
+                                Surface (
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(innerPadding),
+                                ) {
+                                    Greeting(name = "Categories")
+                                }
+                            }
+                            //Composable for profile
+                            composable("profile"){
+                                Surface (
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(innerPadding),
+                                ) {
+                                    Greeting(name = "Profile")
+                                }
+                            }
+
                         }
 
                     }
@@ -164,10 +206,11 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
-        modifier = modifier
+        modifier = Modifier
     )
 }
 
+//Add night mode
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun GreetingPreview() {

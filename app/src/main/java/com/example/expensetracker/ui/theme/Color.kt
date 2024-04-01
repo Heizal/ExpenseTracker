@@ -13,4 +13,5 @@ val BackgroundElevated = Color(0xFF1C1C1E)
 val SystemGray04 = Color(0xFF3A3A3C)
 val LabelSecondary = Color(0xFF8E8E93)
 val Divider = Color(0x20787880)
+val TopAppBarBackground = Color(0x5E1D1D1D)
 
