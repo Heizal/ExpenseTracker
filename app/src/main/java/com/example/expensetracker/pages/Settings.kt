@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.expensetracker.components.TableRow
 import com.example.expensetracker.ui.theme.BackgroundElevated
+import com.example.expensetracker.ui.theme.DividerColor
 import com.example.expensetracker.ui.theme.Shapes
 import com.example.expensetracker.ui.theme.TopAppBarBackground
 
@@ -35,12 +37,21 @@ fun Settings (navController: NavController){
             Column(modifier = Modifier.padding(innerPadding)) {
                 Column(modifier = Modifier
                     .padding(16.dp)
-                    .clip(Shapes.medium)
+                    .clip(Shapes.large)
                     .background(BackgroundElevated)
                     .fillMaxWidth()
                 ) {
-                    TableRow("Categories", hasArrow = true)
-                    TableRow("Erase all data", isDestructive = true)
+                    TableRow("Categories", hasArrow = true, onClick = {_ ->
+                        //Dunno what run does yet lol
+                        //onClick -> goes to the categories page
+                        run {
+                            navController.navigate(route = "settings/categories")
+                        }
+                    })
+                    //Add divider
+                    Divider(modifier = Modifier
+                        .padding(start = 16.dp),thickness = 1.dp, color = DividerColor)
+                    TableRow("Erase all data", isDestructive = true, onClick = {})
 
                 }
             }

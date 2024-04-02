@@ -5,6 +5,9 @@
     android:viewportHeight="960"
     android:autoMirrored="true">
   <path
-      android:fillColor="@color/label_tertiary"
+      android:fillColor="#EBEBF5"
+      android:fillAlpha="0.3"
       android:pathData="M504,480L320,296L376,240L616,480L376,720L320,664L504,480Z"/>
 </vector>
+
+    <!--fillAlpha: Opacity of fillColor -->
